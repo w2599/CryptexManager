@@ -37,6 +37,9 @@ jobs:
       - name: build CryptexManager
         run: |
           swift build -c release -Xlinker -L$(brew --prefix)/lib -Xcc -I$(brew --prefix)/include
+          pwd
+          find .
+          ls .build/release/
 
       - name: Upload CryptexManager
         uses: actions/upload-artifact@v3.1.0
