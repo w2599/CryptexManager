@@ -13,7 +13,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(name: "Swift_libimobiledevice", url: "https://github.com/pinauten/Swift_libimobiledevice", .branch("master")),
+        .package(name: "Swift_libimobiledevice", url: "https://github.com/m1zole/Swift_libimobiledevice", .branch("master")),
         .package(name: "libcryptex", url: "https://github.com/pinauten/libcryptex", .branch("master"))
     ],
     targets: [
