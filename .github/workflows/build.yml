@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**/*.md'
+      - 'README.md'
+      - '.gitignore'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-12
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Procursus
+        uses: beerpiss/procursus-action@v2
+        with:
+          packages: ldid
+          cache: true
+          cache-path: ~/__cache
+
+      - name: Select Xcode version (14.2)
+        run: |
+          sudo xcode-select --switch /Applications/Xcode_14.2.app
+
+      - name: Install dependencies
+        run: |
+          brew install libimobiledevice libplist
+
+      - name: build CryptexManager
+        run: |
+          swift build -c release -Xlinker -L$(brew --prefix)/lib -Xcc -I$(brew --prefix)/include
+
+      - name: Upload CryptexManager
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: CryptexManager
+          path: ${{ github.workspace }}/.build/release/CryptexManager
+
