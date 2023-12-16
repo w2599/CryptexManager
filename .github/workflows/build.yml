@@ -37,13 +37,10 @@ jobs:
       - name: build CryptexManager
         run: |
           swift build -c release -Xlinker -L$(brew --prefix)/lib -Xcc -I$(brew --prefix)/include
-          pwd
-          find .
-          tar cvjf out.tar.bz2 .build/
 
       - name: Upload CryptexManager
         uses: actions/upload-artifact@v3.1.0
         with:
           name: CryptexManager
-          path: ${{ github.workspace }}/out.tar.bz2
+          path: ./
 
